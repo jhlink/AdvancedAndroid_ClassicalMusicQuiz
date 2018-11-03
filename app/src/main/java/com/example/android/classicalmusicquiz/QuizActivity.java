@@ -91,7 +91,7 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
 
         // DONE (3): Replace the default artwork in the SimpleExoPlayerView with the question mark drawable.
         // Load the image of the composer for the answer into the ImageView.
-        mPlayerView.setDefaultArtwork(BitmapFactory.decodeResource(getResources(), R.drawable.question_mark);
+        mPlayerView.setDefaultArtwork(BitmapFactory.decodeResource(getResources(), R.drawable.question_mark));
 
         // If there is only one answer left, end the game.
         if (mQuestionSampleIDs.size() < 2) {
@@ -126,7 +126,7 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
                 mPlayerView.setPlayer(mExoPlayer);
 
                 // DONE (7): Prepare the MediaSource using DefaultDataSourceFactory and DefaultExtractorsFactory, as well as the Sample URI you passed in.
-                String userAgent = Util.getUserAgent(this,, "ClassicalMusicQuiz");
+                String userAgent = Util.getUserAgent(this, "ClassicalMusicQuiz");
                 MediaSource mediaSource = new ExtractorMediaSource(mediaUri,
                         new DefaultDataSourceFactory(this, userAgent),
                         new DefaultExtractorsFactory(),
