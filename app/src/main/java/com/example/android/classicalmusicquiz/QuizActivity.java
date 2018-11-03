@@ -105,7 +105,7 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
         // DONE (4): Create a Sample object using the Sample.getSampleByID() method and passing in mAnswerSampleID;
         Sample answerSample = Sample.getSampleByID(this, mAnswerSampleID);
         if (answerSample == null) {
-            Toast.makeText(this, getString(R.string.sample_not_found_error), Toast.LENGTH_SHORT).show();;
+            Toast.makeText(this, getString(R.string.sample_list_load_error), Toast.LENGTH_SHORT).show();;
             return;
         }
 
