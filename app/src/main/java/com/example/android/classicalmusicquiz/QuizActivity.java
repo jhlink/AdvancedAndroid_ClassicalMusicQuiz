@@ -209,7 +209,8 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                // TODO (9): Stop the playback when you go to the next question.
+                // DONE (9): Stop the playback when you go to the next question.
+                mExoPlayer.stop();
                 Intent nextQuestionIntent = new Intent(QuizActivity.this, QuizActivity.class);
                 nextQuestionIntent.putExtra(REMAINING_SONGS_KEY, mRemainingSampleIDs);
                 finish();
