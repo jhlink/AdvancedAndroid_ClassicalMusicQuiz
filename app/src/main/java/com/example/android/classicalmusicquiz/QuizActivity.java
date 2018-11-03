@@ -20,6 +20,7 @@ import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.content.ContextCompat;
@@ -29,8 +30,19 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.android.exoplayer2.DefaultLoadControl;
+import com.google.android.exoplayer2.ExoPlayerFactory;
+import com.google.android.exoplayer2.LoadControl;
 import com.google.android.exoplayer2.SimpleExoPlayer;
+import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
+import com.google.android.exoplayer2.source.ExtractorMediaSource;
+import com.google.android.exoplayer2.source.MediaSource;
+import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
+import com.google.android.exoplayer2.trackselection.TrackSelection;
+import com.google.android.exoplayer2.trackselection.TrackSelector;
 import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
+import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
+import com.google.android.exoplayer2.util.Util;
 
 import java.util.ArrayList;
 
@@ -97,16 +109,37 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
             return;
         }
 
-        // TODO (5): Create a method called initializePlayer() that takes a Uri as an argument and call it here, passing in the Sample URI.
-
+        // DONE (5): Create a method called initializePlayer() that takes a Uri as an argument and call it here, passing in the Sample URI.
+        initializePlayer(Uri.parse(answerSample.getUri()));
 
         }
 
 
-    // In initializePayer
-    // TODO (6): Instantiate a SimpleExoPlayer object using DefaultTrackSelector and DefaultLoadControl.
-    // TODO (7): Prepare the MediaSource using DefaultDataSourceFactory and DefaultExtractorsFactory, as well as the Sample URI you passed in.
-    // TODO (8): Prepare the ExoPlayer with the MediaSource, start playing the sample and set the SimpleExoPlayer to the SimpleExoPlayerView.
+        private void initializePlayer(Uri mediaUri) {
+            // In initializePayer
+            if  ( mExoPlayer == null ) {
+                // DONE (6): Instantiate a SimpleExoPlayer object using DefaultTrackSelector and DefaultLoadControl.
+                TrackSelector trackSelector = new DefaultTrackSelector();
+                LoadControl loadControl = new DefaultLoadControl();
+
+                mExoPlayer = ExoPlayerFactory.newSimpleInstance(this, trackSelector, loadControl);
+                mPlayerView.setPlayer(mExoPlayer);
+
+                // DONE (7): Prepare the MediaSource using DefaultDataSourceFactory and DefaultExtractorsFactory, as well as the Sample URI you passed in.
+                String userAgent = Util.getUserAgent(this,, "ClassicalMusicQuiz");
+                MediaSource mediaSource = new ExtractorMediaSource(mediaUri,
+                        new DefaultDataSourceFactory(this, userAgent),
+                        new DefaultExtractorsFactory(),
+                        null,
+                        null);
+
+                // DONE (8): Prepare the ExoPlayer with the MediaSource, start playing the sample and set the SimpleExoPlayer to the SimpleExoPlayerView.
+                mExoPlayer.prepare(mediaSource);
+                mExoPlayer.setPlayWhenReady(true);
+
+            }
+
+        }
 
 
     /**
