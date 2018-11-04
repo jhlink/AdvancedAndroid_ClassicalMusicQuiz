@@ -117,8 +117,9 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
 
         initializeSession();
         // DONE (1): Create a method to initialize the MediaSession. It should create the MediaSessionCompat object, set the flags for external clients, set the available actions you want to support, and start the session.
-        // TODO (2): Create an inner class that extends MediaSessionCompat.Callbacks, and override the onPlay(), onPause(), and onSkipToPrevious() callbacks. Pass an instance of this class into the MediaSession.setCallback() method in the method you created in TODO 1.
-        
+        // DONE (2): Create an inner class that extends MediaSessionCompat.Callbacks, and override the onPlay(), onPause(), and onSkipToPrevious() callbacks. Pass an instance of this class into the MediaSession.setCallback() method in the method you created in TODO 1.
+
+
         Sample answerSample = Sample.getSampleByID(this, mAnswerSampleID);
 
         if (answerSample == null) {
@@ -149,6 +150,24 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
         .build();
 
         mMediaSession.setPlaybackState(mStateBuilder);
+
+        mMediaSession.setCallback(new MediaSessionCompat.Callback() {
+            @Override
+            public void onPlay() {
+                super.onPlay();
+            }
+
+            @Override
+            public void onPause() {
+                super.onPause();
+            }
+
+            @Override
+            public void onSkipToPrevious() {
+                super.onSkipToPrevious();
+            }
+        });
+
     }
 
 
