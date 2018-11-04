@@ -167,6 +167,7 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
+        mMediaSession.setActive(true);
     }
 
 
