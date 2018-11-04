@@ -70,7 +70,7 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
     private SimpleExoPlayer mExoPlayer;
     private SimpleExoPlayerView mPlayerView;
     private MediaSessionCompat mMediaSession;
-    private PlaybackStateCompat mStateBuilder;
+    private PlaybackStateCompat.Builder mStateBuilder;
 
 
     @Override
@@ -146,10 +146,9 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
                         PlaybackStateCompat.ACTION_PLAY |
                                 PlaybackStateCompat.ACTION_PAUSE |
                                 PlaybackStateCompat.ACTION_PLAY_PAUSE |
-                                PlaybackStateCompat.ACTION_SKIP_TO_PREVIOUS)
-        .build();
+                                PlaybackStateCompat.ACTION_SKIP_TO_PREVIOUS);
 
-        mMediaSession.setPlaybackState(mStateBuilder);
+        mMediaSession.setPlaybackState(mStateBuilder.build());
 
         mMediaSession.setCallback(new MediaSessionCompat.Callback() {
             @Override
@@ -336,10 +335,20 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
         if((playbackState == ExoPlayer.STATE_READY) && playWhenReady){
-            // TODO (3): When ExoPlayer is playing, update the PlayBackState.
+            // DONE (3): When ExoPlayer is playing, update the PlayBackState.
+
+            mStateBuilder.setState(PlaybackStateCompat.STATE_PLAYING,
+                    mExoPlayer.getCurrentPosition(), 1f);
+            mMediaSession.setPlaybackState(mStateBuilder.build());
+
             Log.d(TAG, "onPlayerStateChanged: PLAYING");
         } else if((playbackState == ExoPlayer.STATE_READY)){
-            // TODO (3): When ExoPlayer is paused, update the PlayBackState.
+            // DONE (3): When ExoPlayer is paused, update the PlayBackState.
+
+            mStateBuilder.setState(PlaybackStateCompat.STATE_PAUSED,
+                    mExoPlayer.getCurrentPosition(), 1f);
+            mMediaSession.setPlaybackState(mStateBuilder.build());
+
             Log.d(TAG, "onPlayerStateChanged: PAUSED");
         }
     }
